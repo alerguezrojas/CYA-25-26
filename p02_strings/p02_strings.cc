@@ -14,31 +14,63 @@
 
 #include <iostream>
 #include "symbol.h"
+#include "alphabet.h"
 
 int main() {
-  Symbol symbol1('a');
-  Symbol symbol2('b');
-  Symbol symbol3 = 'c';
-  char char_symbol = 'd';
-  Symbol symbol4(char_symbol);
+  // Symbol symbol1('a');
+  // Symbol symbol2('b');
+  // Symbol symbol3 = 'c';
+  // char char_symbol = 'd';
+  // Symbol symbol4(char_symbol);
 
-  std::cout << "Symbol 1: " << symbol1 << std::endl;
-  std::cout << "Symbol 2: " << symbol2 << std::endl;
-  std::cout << "Symbol 3: " << symbol3 << std::endl;
-  std::cout << "Symbol 4: " << symbol4 << std::endl;
+  // std::cout << "Symbol 1: " << symbol1 << std::endl;
+  // std::cout << "Symbol 2: " << symbol2 << std::endl;
+  // std::cout << "Symbol 3: " << symbol3 << std::endl;
+  // std::cout << "Symbol 4: " << symbol4 << std::endl;
 
 
-  if (symbol1 < symbol2) {
-    std::cout << symbol1 << " is less than " << symbol2 << std::endl;
+  // if (symbol1 < symbol2) {
+  //   std::cout << symbol1 << " is less than " << symbol2 << std::endl;
+  // } else {
+  //   std::cout << symbol1 << " is not less than " << symbol2 << std::endl;
+  // }
+
+  // if (symbol1 == symbol2) {
+  //   std::cout << symbol1 << " is equal to " << symbol2 << std::endl;
+  // } else {
+  //   std::cout << symbol1 << " is not equal to " << symbol2 << std::endl;
+  // }
+
+  std::string alphabet_string = "abcde";
+  Alphabet alphabet(alphabet_string);
+  std::cout << "Alphabet: " << alphabet << std::endl;
+
+  std::set<Symbol> symbol_set = {Symbol('x'), Symbol('y'), Symbol('z')};
+  Alphabet alphabet2(symbol_set);
+  std::cout << "Alphabet 2: " << alphabet2 << std::endl;
+
+  // testing GetAlphabet
+  std::set<Symbol> retrieved_alphabet = alphabet.GetAlphabet();
+  Alphabet alphabet3(retrieved_alphabet);
+  std::cout << "Retrieved Alphabet: " << alphabet3 << std::endl;
+
+  // testing AddSymbol
+  Symbol new_symbol('f');
+  alphabet.AddSymbol(new_symbol);
+  std::cout << "Alphabet after adding symbol 'f': " << alphabet << std::endl;
+  Symbol new_symbol2('A');
+  alphabet.AddSymbol(new_symbol2);
+  std::cout << "Alphabet after adding symbol 'A': " << alphabet << std::endl;
+
+  // testing Contains
+  Symbol check_symbol('c');
+  if (alphabet.Contains(check_symbol)) {
+    std::cout << "Alphabet contains symbol 'c'" << std::endl;
   } else {
-    std::cout << symbol1 << " is not less than " << symbol2 << std::endl;
+    std::cout << "Alphabet does not contain symbol 'c'" << std::endl;
   }
 
-  if (symbol1 == symbol2) {
-    std::cout << symbol1 << " is equal to " << symbol2 << std::endl;
-  } else {
-    std::cout << symbol1 << " is not equal to " << symbol2 << std::endl;
-  }
+  
 
   return 0;
 }
