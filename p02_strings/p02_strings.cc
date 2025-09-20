@@ -15,6 +15,8 @@
 #include <iostream>
 #include "symbol.h"
 #include "alphabet.h"
+#include "chain.h"
+#include "language.h"
 
 int main() {
   // Symbol symbol1('a');
@@ -41,34 +43,59 @@ int main() {
   //   std::cout << symbol1 << " is not equal to " << symbol2 << std::endl;
   // }
 
-  std::string alphabet_string = "abcde";
-  Alphabet alphabet(alphabet_string);
-  std::cout << "Alphabet: " << alphabet << std::endl;
+  // std::string alphabet_string = "abcde";
+  // Alphabet alphabet(alphabet_string);
+  // std::cout << "Alphabet: " << alphabet << std::endl;
 
-  std::set<Symbol> symbol_set = {Symbol('x'), Symbol('y'), Symbol('z')};
-  Alphabet alphabet2(symbol_set);
-  std::cout << "Alphabet 2: " << alphabet2 << std::endl;
+  // std::set<Symbol> symbol_set = {Symbol('x'), Symbol('y'), Symbol('z')};
+  // Alphabet alphabet2(symbol_set);
+  // std::cout << "Alphabet 2: " << alphabet2 << std::endl;
 
-  // testing GetAlphabet
-  std::set<Symbol> retrieved_alphabet = alphabet.GetAlphabet();
-  Alphabet alphabet3(retrieved_alphabet);
-  std::cout << "Retrieved Alphabet: " << alphabet3 << std::endl;
+  // // testing GetAlphabet
+  // std::set<Symbol> retrieved_alphabet = alphabet.GetAlphabet();
+  // Alphabet alphabet3(retrieved_alphabet);
+  // std::cout << "Retrieved Alphabet: " << alphabet3 << std::endl;
 
-  // testing AddSymbol
-  Symbol new_symbol('f');
-  alphabet.AddSymbol(new_symbol);
-  std::cout << "Alphabet after adding symbol 'f': " << alphabet << std::endl;
-  Symbol new_symbol2('A');
-  alphabet.AddSymbol(new_symbol2);
-  std::cout << "Alphabet after adding symbol 'A': " << alphabet << std::endl;
+  // // testing AddSymbol
+  // Symbol new_symbol('f');
+  // alphabet.AddSymbol(new_symbol);
+  // std::cout << "Alphabet after adding symbol 'f': " << alphabet << std::endl;
+  // Symbol new_symbol2('A');
+  // alphabet.AddSymbol(new_symbol2);
+  // std::cout << "Alphabet after adding symbol 'A': " << alphabet << std::endl;
 
-  // testing Contains
-  Symbol check_symbol('c');
-  if (alphabet.Contains(check_symbol)) {
-    std::cout << "Alphabet contains symbol 'c'" << std::endl;
-  } else {
-    std::cout << "Alphabet does not contain symbol 'c'" << std::endl;
-  }
+  // // testing Contains
+  // Symbol check_symbol('c');
+  // if (alphabet.Contains(check_symbol)) {
+  //   std::cout << "Alphabet contains symbol 'c'" << std::endl;
+  // } else {
+  //   std::cout << "Alphabet does not contain symbol 'c'" << std::endl;
+  // }
+
+  // Testing Chain class
+
+  Chain chain("hello");
+  std::cout << "Chain: " << chain << std::endl;
+
+  Chain chain2("abcde");
+  std::cout << "Chain 2: " << chain2 << std::endl;
+
+  chain.AddToFront(Symbol('X'));
+  std::cout << "After adding 'X' to front: " << chain << std::endl;
+
+  chain.AddToBack(Symbol('Y'));
+  std::cout << "After adding 'Y' to back: " << chain << std::endl;
+
+  std::cout << "Length of chain: " << chain.Lenght() << std::endl;
+
+  Chain inverse_chain = chain.Inverse();
+  std::cout << "Inverse chain: " << inverse_chain << std::endl;
+
+  Language prefixes = chain.Prefixes();
+  std::cout << "Prefixes: " << prefixes << std::endl;
+
+  Language suffixes = chain2.Suffixes();
+  std::cout << "Suffixes: " << suffixes << std::endl;
 
   
 
