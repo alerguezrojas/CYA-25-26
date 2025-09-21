@@ -18,7 +18,7 @@
 Chain::Chain() {}
 
 Chain::Chain(const std::string& chain) {
-  for(int i = 0; i < chain.size(); ++i) {
+  for(long unsigned int i = 0; i < chain.size(); ++i) {
     chain_.push_back(Symbol(chain[i]));
   }
 }
@@ -62,7 +62,7 @@ Language Chain::Prefixes() const {
 
   prefixes.insert(empty_chain);  // Adding the empty chain as a prefix
   
-  for(int i = 0; i < chain_.size(); ++i) {
+  for(long unsigned int i = 0; i < chain_.size(); ++i) {
     prefix.AddToBack(chain_[i]);
     prefixes.insert(prefix);
   }

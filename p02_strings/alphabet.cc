@@ -18,7 +18,7 @@
 Alphabet::Alphabet() {}
 
 Alphabet::Alphabet(const std::string& alphabet) {
-  for(int i = 0; i < alphabet.size(); ++i) {
+  for(long unsigned int i = 0; i < alphabet.size(); ++i) {
     alphabet_.insert(Symbol(alphabet[i]));
   }
 }

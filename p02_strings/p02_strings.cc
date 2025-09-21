@@ -74,28 +74,30 @@ int main() {
 
   // Testing Chain class
 
-  Chain chain("hello");
-  std::cout << "Chain: " << chain << std::endl;
+  // Chain chain("hello");
+  // std::cout << "Chain: " << chain << std::endl;
 
-  Chain chain2("abcde");
-  std::cout << "Chain 2: " << chain2 << std::endl;
+  // Chain chain2("abcde");
+  // std::cout << "Chain 2: " << chain2 << std::endl;
 
-  chain.AddToFront(Symbol('X'));
-  std::cout << "After adding 'X' to front: " << chain << std::endl;
+  // chain.AddToFront(Symbol('X'));
+  // std::cout << "After adding 'X' to front: " << chain << std::endl;
 
-  chain.AddToBack(Symbol('Y'));
-  std::cout << "After adding 'Y' to back: " << chain << std::endl;
+  // chain.AddToBack(Symbol('Y'));
+  // std::cout << "After adding 'Y' to back: " << chain << std::endl;
 
-  std::cout << "Length of chain: " << chain.Lenght() << std::endl;
+  // std::cout << "Length of chain: " << chain.Lenght() << std::endl;
 
-  Chain inverse_chain = chain.Inverse();
-  std::cout << "Inverse chain: " << inverse_chain << std::endl;
+  // Chain inverse_chain = chain.Inverse();
+  // std::cout << "Inverse chain: " << inverse_chain << std::endl;
 
-  Language prefixes = chain.Prefixes();
-  std::cout << "Prefixes: " << prefixes << std::endl;
+  // Language prefixes = chain.Prefixes();
+  // std::cout << "Prefixes: " << prefixes << std::endl;
 
-  Language suffixes = chain2.Suffixes();
-  std::cout << "Suffixes: " << suffixes << std::endl;
+  // Language suffixes = chain2.Suffixes();
+  // std::cout << "Suffixes: " << suffixes << std::endl;
+
+  
 
   
 
