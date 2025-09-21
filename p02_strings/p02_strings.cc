@@ -17,89 +17,31 @@
 #include "alphabet.h"
 #include "chain.h"
 #include "language.h"
+#include "functions.h"
 
-int main() {
-  // Symbol symbol1('a');
-  // Symbol symbol2('b');
-  // Symbol symbol3 = 'c';
-  // char char_symbol = 'd';
-  // Symbol symbol4(char_symbol);
+int main(int argc, char* argv[]) {
+  if (argc == 1) {
+    PrintUsage();
+    return 0;
+  }
+  if (argc == 2 && std::string(argv[1]) == "--help") {
+    PrintHelp();
+    return 0;
+  }
+  if (argc != 4) {
+    PrintUsage();
+    return 1;
+  }
 
-  // std::cout << "Symbol 1: " << symbol1 << std::endl;
-  // std::cout << "Symbol 2: " << symbol2 << std::endl;
-  // std::cout << "Symbol 3: " << symbol3 << std::endl;
-  // std::cout << "Symbol 4: " << symbol4 << std::endl;
+  const std::string input_file = argv[1];
+  const std::string output_file = argv[2];
+  const int opcode = std::stoi(argv[3]);
 
+  if (opcode < 1 || opcode > 5) {
+    std::cerr << "Error: el opcode debe ser un número entre 1 y 5.\n";
+    return 1;
+  }
 
-  // if (symbol1 < symbol2) {
-  //   std::cout << symbol1 << " is less than " << symbol2 << std::endl;
-  // } else {
-  //   std::cout << symbol1 << " is not less than " << symbol2 << std::endl;
-  // }
-
-  // if (symbol1 == symbol2) {
-  //   std::cout << symbol1 << " is equal to " << symbol2 << std::endl;
-  // } else {
-  //   std::cout << symbol1 << " is not equal to " << symbol2 << std::endl;
-  // }
-
-  // std::string alphabet_string = "abcde";
-  // Alphabet alphabet(alphabet_string);
-  // std::cout << "Alphabet: " << alphabet << std::endl;
-
-  // std::set<Symbol> symbol_set = {Symbol('x'), Symbol('y'), Symbol('z')};
-  // Alphabet alphabet2(symbol_set);
-  // std::cout << "Alphabet 2: " << alphabet2 << std::endl;
-
-  // // testing GetAlphabet
-  // std::set<Symbol> retrieved_alphabet = alphabet.GetAlphabet();
-  // Alphabet alphabet3(retrieved_alphabet);
-  // std::cout << "Retrieved Alphabet: " << alphabet3 << std::endl;
-
-  // // testing AddSymbol
-  // Symbol new_symbol('f');
-  // alphabet.AddSymbol(new_symbol);
-  // std::cout << "Alphabet after adding symbol 'f': " << alphabet << std::endl;
-  // Symbol new_symbol2('A');
-  // alphabet.AddSymbol(new_symbol2);
-  // std::cout << "Alphabet after adding symbol 'A': " << alphabet << std::endl;
-
-  // // testing Contains
-  // Symbol check_symbol('c');
-  // if (alphabet.Contains(check_symbol)) {
-  //   std::cout << "Alphabet contains symbol 'c'" << std::endl;
-  // } else {
-  //   std::cout << "Alphabet does not contain symbol 'c'" << std::endl;
-  // }
-
-  // Testing Chain class
-
-  // Chain chain("hello");
-  // std::cout << "Chain: " << chain << std::endl;
-
-  // Chain chain2("abcde");
-  // std::cout << "Chain 2: " << chain2 << std::endl;
-
-  // chain.AddToFront(Symbol('X'));
-  // std::cout << "After adding 'X' to front: " << chain << std::endl;
-
-  // chain.AddToBack(Symbol('Y'));
-  // std::cout << "After adding 'Y' to back: " << chain << std::endl;
-
-  // std::cout << "Length of chain: " << chain.Lenght() << std::endl;
-
-  // Chain inverse_chain = chain.Inverse();
-  // std::cout << "Inverse chain: " << inverse_chain << std::endl;
-
-  // Language prefixes = chain.Prefixes();
-  // std::cout << "Prefixes: " << prefixes << std::endl;
-
-  // Language suffixes = chain2.Suffixes();
-  // std::cout << "Suffixes: " << suffixes << std::endl;
-
-  
-
-  
-
+  ProcessFile(input_file, output_file, opcode);
   return 0;
 }
