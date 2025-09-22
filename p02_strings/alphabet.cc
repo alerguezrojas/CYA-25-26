@@ -40,7 +40,7 @@ bool Alphabet::Contains(const Symbol& symbol) const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
-  os << "{ ";
+  os << "{";
   bool first = true;
   for(const auto& symbol : alphabet.alphabet_) {
     if (!first) {
@@ -49,6 +49,6 @@ std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
     os << symbol;
     first = false;
   }
-  os << " }";
+  os << "}";
   return os;
 }

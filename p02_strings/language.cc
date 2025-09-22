@@ -25,7 +25,7 @@ std::set<Chain> Language::GetLanguage() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Language& language) {
-  os << "{ ";
+  os << "{";
   if (language.language_.empty()) {
     os << "}";
     return os;
@@ -38,6 +38,6 @@ std::ostream& operator<<(std::ostream& os, const Language& language) {
     os << chain;
     first = false;
   }
-  os << " }";
+  os << "}";
   return os;
 }

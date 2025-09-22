@@ -15,7 +15,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "functions.h"
 #include "symbol.h"
 #include "alphabet.h"
 #include "chain.h"

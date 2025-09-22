@@ -58,7 +58,8 @@ Chain Chain::Inverse() const {
 Language Chain::Prefixes() const {
   std::set<Chain> prefixes;
   Chain prefix;
-  Chain empty_chain;
+  std::string empty = "&";
+  Chain empty_chain(empty);
 
   prefixes.insert(empty_chain);  // Adding the empty chain as a prefix
   
@@ -73,7 +74,8 @@ Language Chain::Prefixes() const {
 Language Chain::Suffixes() const {
   std::set<Chain> suffixes;
   Chain suffix;
-  Chain empty_chain;
+  std::string empty = "&";
+  Chain empty_chain(empty);
 
   suffixes.insert(empty_chain);  // Adding the empty chain as a suffix
   
@@ -88,12 +90,8 @@ Language Chain::Suffixes() const {
 
 
 std::ostream& operator<<(std::ostream& os, const Chain& chain) {
-  if (chain.chain_.empty()) {
-    os << "&";  // Representing the empty chain with &
-  } else {
-    for(const auto& symbol : chain.chain_) {
-      os << symbol;
-    }
+  for(const auto& symbol : chain.chain_) {
+    os << symbol;
   }
   return os;
 }

@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     PrintUsage();
     return 0;
   }
-  if (argc == 2 && std::string(argv[1]) == "--help") {
+  if (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "-h")) {
     PrintHelp();
     return 0;
   }
