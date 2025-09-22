@@ -20,14 +20,11 @@ int main(int argc, char* argv[]) {
   std::string output_file;
   int opcode = 0;
 
-  // 1. Validar argumentos de línea de comandos
   if (!ValidateArguments(argc, argv, input_file, output_file, opcode)) {
-    return 1;  // Finaliza si hay error de argumentos o si se pidió ayuda
+    return 1;
   }
 
-  // 2. Procesar el fichero de entrada según el opcode
   ProcessFile(input_file, output_file, opcode);
 
-  // 3. Fin correcto
   return 0;
 }

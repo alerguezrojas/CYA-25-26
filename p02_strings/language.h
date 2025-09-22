@@ -17,6 +17,9 @@
 
 #include "chain.h"
 
+/**
+ * @brief Class representing a language, which is a set of chains.
+ */
 class Language {
   public:
     Language();

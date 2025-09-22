@@ -17,13 +17,19 @@
 #include <iostream>
 #include <sstream>
 
-// ------------------------- Utilidades de ayuda -------------------------
-
+/**
+ * @brief Prints the usage information for the program when
+ *       incorrect arguments are provided.
+ */
 void PrintUsage() {
   std::cout << "Modo de empleo: ./p02_strings [filein.txt] [fileout.txt] [opcode]\n"
             << "Pruebe './p02_strings --help' para más información.\n";
 }
 
+/**
+ * @brief Prints the help information for the program when
+ *        the user requests help with --help or -h.
+ */
 void PrintHelp() {
   std::cout << "Modo de empleo: ./p02_strings [filein.txt] [fileout.txt] [opcode]\n"
             << "Los Opcodes son:\n"
@@ -34,8 +40,13 @@ void PrintHelp() {
             << "5: Sufijos de la cadena\n";
 }
 
-// ------------------------- Validaciones -------------------------
-
+/**
+ * @brief Validates the alphabet string, ensuring it is not empty
+ *        and does not contain the empty symbol '&'.
+ * @param alphabet_str The alphabet string to validate.
+ * @param line_number The line number in the input file for error reporting.
+ * @return True if the alphabet is valid; otherwise, false and an error message is printed
+ */
 bool ValidateAlphabet(const std::string& alphabet_str, int line_number) {
   if (alphabet_str.empty()) {
     std::cerr << "Error (línea " << line_number
@@ -50,6 +61,14 @@ bool ValidateAlphabet(const std::string& alphabet_str, int line_number) {
   return true;
 }
 
+/***
+ * @brief Validates that each symbol in the chain belongs to the alphabet.
+ * @param chain The chain to validate.
+ * @param alphabet The alphabet to check against.
+ * @param chain_str The original chain string for error reporting.
+ * @param line_number The line number in the input file for error reporting.
+ * @return True if the chain is valid; otherwise, false and an error message is printed
+ */
 bool ValidateChainSymbols(const Chain& chain,
                           const Alphabet& alphabet,
                           const std::string& chain_str,
@@ -66,8 +85,13 @@ bool ValidateChainSymbols(const Chain& chain,
   return true;
 }
 
-// ------------------------- Procesado -------------------------
-
+/**
+ * @brief Processes a validated line and writes the result based on the opcode.
+ * @param chain The validated chain.
+ * @param alphabet The associated alphabet.
+ * @param opcode The operation code indicating which operation to perform.
+ * @param fout The output file stream to write the result to.
+ */
 void ProcessValidLine(const Chain& chain,
                       const Alphabet& alphabet,
                       int opcode,
@@ -89,12 +113,18 @@ void ProcessValidLine(const Chain& chain,
       fout << chain.Suffixes() << "\n";
       break;
     default:
-      // Este caso debería estar validado antes de llegar aquí
+      // This should never happen due to prior validation
       std::cerr << "Error interno: opcode inválido.\n";
       break;
   }
 }
 
+/**
+ * @brief Processes the entire file: reading, validations, and writing results.
+ * @param input_file The input file name.
+ * @param output_file The output file name.
+ * @param opcode The operation code indicating which operation to perform.
+ */
 void ProcessFile(const std::string& input_file,
                  const std::string& output_file,
                  int opcode) {
@@ -137,10 +167,20 @@ void ProcessFile(const std::string& input_file,
 
     ProcessValidLine(chain, alphabet, opcode, fout);
   }
-}
+} // The files close automatically when their destructors are called
 
-// ------------------------- Argumentos -------------------------
-
+/**
+ * @brief Validates the command line arguments:
+ *       checks the number of arguments and the opcode range.
+ * 
+  * @param argc The argument count.
+  * @param argv The argument vector.
+  * @param input_file Reference to store the input file name.
+  * @param output_file Reference to store the output file name.
+  * @param opcode Reference to store the operation code.
+  * @return True if all arguments are valid; otherwise,
+  *         false and error messages are printed.
+ */
 bool ValidateArguments(int argc, char* argv[],
                        std::string& input_file,
                        std::string& output_file,

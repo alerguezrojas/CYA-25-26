@@ -22,35 +22,31 @@
 #include "language.h"
 #include "symbol.h"
 
+/**
+ * @brief Functions file that contains auxiliary functions for the main program.
+ *        These functions handle file processing, input validation, and operations
+ */
+
 void PrintUsage();
 
-// Muestra información de ayuda.
 void PrintHelp();
 
-// Valida que un alfabeto sea no vacío y no contenga '&'.
-// Devuelve true si es válido; en caso contrario escribe en std::cerr.
 bool ValidateAlphabet(const std::string& alphabet_str, int line_number);
 
-// Valida que cada símbolo de la cadena pertenezca al alfabeto.
-// Devuelve true si es válido; en caso contrario escribe en std::cerr.
 bool ValidateChainSymbols(const Chain& chain,
                           const Alphabet& alphabet,
                           const std::string& chain_str,
                           int line_number);
 
-// Procesa una línea ya validada y escribe su resultado según el opcode.
 void ProcessValidLine(const Chain& chain,
                       const Alphabet& alphabet,
                       int opcode,
                       std::ofstream& fout);
 
-// Procesa el fichero completo: lectura, validaciones y escritura de resultados.
 void ProcessFile(const std::string& input_file,
                  const std::string& output_file,
                  int opcode);
 
-// Valida la línea de comandos: comprueba número de argumentos y rango de opcode.
-// Devuelve true si todo es válido. Si no, muestra errores y devuelve false.
 bool ValidateArguments(int argc, char* argv[],
                        std::string& input_file,
                        std::string& output_file,

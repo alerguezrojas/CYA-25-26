@@ -21,6 +21,9 @@
 
 #include "symbol.h"
 
+/**
+ * @brief Class representing an alphabet, which is a set of symbols.
+ */
 class Alphabet {
   public:
     Alphabet();

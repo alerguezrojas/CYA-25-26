@@ -14,16 +14,33 @@
 
 #include "language.h"
 
+/**
+ * @brief Default constructor for Language class.
+ */
 Language::Language() {}
 
+/**
+ * @brief Constructor for Language class that initializes the language with a set of chains.
+ * @param language The set of chains to initialize the language with.
+ */
 Language::Language(const std::set<Chain>& language) {
   language_ = language;
 }
 
+/**
+ * @brief Getter for the language set.
+ * @return The set of chains representing the language.
+ */
 std::set<Chain> Language::GetLanguage() const {
   return language_;
 }
 
+/**
+ * @brief Output stream operator for printing the language.
+ * @param os The output stream.
+ * @param language The language to print.
+ * @return The output stream with the language appended.
+ */
 std::ostream& operator<<(std::ostream& os, const Language& language) {
   os << "{";
   if (language.language_.empty()) {

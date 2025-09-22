@@ -17,6 +17,10 @@
 
 #include <iostream>
 
+/**
+ * @brief Class that represents a symbol.
+ */
+
 class Symbol {
   public:
     Symbol();

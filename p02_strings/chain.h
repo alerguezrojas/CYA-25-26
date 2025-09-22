@@ -22,6 +22,10 @@
 
 class Language;  // Forward declaration to avoid circular dependency
 
+/**
+ * @brief Class representing a chain, which is a sequence of symbols.
+ *        A chain has an associated alphabet.
+ */
 class Chain {
   public:
     Chain();
