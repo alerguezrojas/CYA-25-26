@@ -18,6 +18,9 @@
 Chain::Chain() {}
 
 Chain::Chain(const std::string& chain) {
+  if (chain == "&") { // Empty chain
+    return;
+  }
   for(long unsigned int i = 0; i < chain.size(); ++i) {
     chain_.push_back(Symbol(chain[i]));
   }
@@ -58,8 +61,8 @@ Chain Chain::Inverse() const {
 Language Chain::Prefixes() const {
   std::set<Chain> prefixes;
   Chain prefix;
-  std::string empty = "&";
-  Chain empty_chain(empty);
+
+  Chain empty_chain;
 
   prefixes.insert(empty_chain);  // Adding the empty chain as a prefix
   
@@ -74,6 +77,7 @@ Language Chain::Prefixes() const {
 Language Chain::Suffixes() const {
   std::set<Chain> suffixes;
   Chain suffix;
+  
   std::string empty = "&";
   Chain empty_chain(empty);
 
@@ -90,10 +94,14 @@ Language Chain::Suffixes() const {
 
 
 std::ostream& operator<<(std::ostream& os, const Chain& chain) {
-  for(const auto& symbol : chain.chain_) {
+  if (chain.chain_.empty()) {
+    os << "&";
+  } else {
+    for (const auto& symbol : chain.chain_) {
     os << symbol;
+    }
   }
-  return os;
+  return os;  
 }
 
 bool operator<(const Chain& chain1, const Chain& chain2) { // Comparing by size
