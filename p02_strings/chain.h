@@ -40,11 +40,16 @@ class Chain {
     Chain Inverse() const;
     Language Prefixes() const;
     Language Suffixes() const;
+    Language Subchains() const; // ej chain: abc -> &, a, b, c, ab, bc, abc
     friend std::ostream& operator<<(std::ostream& os, const Chain& chain);
     friend bool operator<(const Chain& chain1, const Chain& chain2);
   private:
     std::vector<Symbol> chain_;
     Alphabet alphabet_;
 };
+
+inline bool operator!=(const Symbol& lhs, const Symbol& rhs) {
+  return !(lhs == rhs);
+}
 
 #endif  // CHAIN_H

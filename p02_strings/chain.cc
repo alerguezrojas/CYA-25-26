@@ -129,6 +129,28 @@ Language Chain::Suffixes() const {
 }
 
 /**
+ * @brief Returns the set of all subchains of the chain as a Language object.
+ *        A subchain is any contiguous sequence of symbols within the chain,
+ *        including the empty chain.
+ * @return A Language object containing all subchains of the chain.
+ */
+Language Chain::Subchains() const { // ej chain: abc -> &, a, b, c, ab, bc, abc
+  std::set<Chain> subchains;
+  Chain empty_chain;
+  subchains.insert(empty_chain);  // Adding the empty chain as a subchain
+
+  for(long unsigned int i = 0; i < chain_.size(); ++i) {
+    Chain subchain;
+    for(long unsigned int j = i; j < chain_.size(); ++j) {
+      subchain.AddToBack(chain_[j]);
+      subchains.insert(subchain);
+    }
+  }
+
+  return Language(subchains);
+}
+
+/**
  * @brief Output stream operator for printing the chain.
  * @param os The output stream.
  * @param chain The chain to print.
@@ -151,7 +173,16 @@ std::ostream& operator<<(std::ostream& os, const Chain& chain) {
  * @param chain2 The second chain to compare.
  * @return True if the first chain is less than the second chain, false otherwise.
  */
-bool operator<(const Chain& chain1, const Chain& chain2) { // Comparing by size
-  return chain1.chain_.size() < chain2.chain_.size();
+bool operator<(const Chain& chain1, const Chain& chain2) { // Comparing by size, if equal, lexicographically
+  if (chain1.chain_.size() != chain2.chain_.size()) {
+    return chain1.chain_.size() < chain2.chain_.size();
+  }
+  for (long unsigned int i = 0; i < chain1.chain_.size(); ++i) {
+    if (chain1.chain_[i] != chain2.chain_[i]) {
+      return chain1.chain_[i] < chain2.chain_[i];
+    }
+  }
+  return false; // They are equal
+  
 }
 
