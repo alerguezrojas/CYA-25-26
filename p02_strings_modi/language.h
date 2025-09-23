@@ -25,6 +25,8 @@ class Language {
     Language();
     Language(const std::set<Chain>& language);
     ~Language() = default;
+    // modi: Intersection of two languages
+    Language Intersection(const Language& other) const;
     std::set<Chain> GetLanguage() const;
     friend std::ostream& operator<<(std::ostream& os, const Language& language);
 

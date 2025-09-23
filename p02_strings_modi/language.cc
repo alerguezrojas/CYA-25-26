@@ -27,6 +27,17 @@ Language::Language(const std::set<Chain>& language) {
   language_ = language;
 }
 
+// modi: Intersection of two languages
+Language Language::Intersection(const Language& other) const {
+  std::set<Chain> intersection;
+  for (const auto& chain : language_) {
+    if (other.language_.find(chain) != other.language_.end()) {
+      intersection.insert(chain);
+    }
+  }
+  return Language(intersection);
+}
+
 /**
  * @brief Getter for the language set.
  * @return The set of chains representing the language.

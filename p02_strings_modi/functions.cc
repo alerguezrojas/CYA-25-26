@@ -112,6 +112,15 @@ void ProcessValidLine(const Chain& chain,
     case 5:
       fout << chain.Suffixes() << "\n";
       break;
+    case 6:
+      // modi: Intersection of two languages
+      {
+        Language lang1 = chain.Prefixes();
+        Language lang2 = chain.Suffixes();
+        Language intersection = lang1.Intersection(lang2);
+        fout << intersection << "\n";
+      }
+      break;
     default:
       // This should never happen due to prior validation
       std::cerr << "Error interno: opcode inválido.\n";
@@ -209,7 +218,7 @@ bool ValidateArguments(int argc, char* argv[],
     return false;
   }
 
-  if (opcode < 1 || opcode > 5) {
+  if (opcode < 1 || opcode > 6) {
     std::cerr << "Error: el opcode debe ser un número entre 1 y 5.\n";
     return false;
   }
