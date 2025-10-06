@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Iinclude -fsanitize=address -Wall -Wextra
+CXXFLAGS = -std=c++17 -Iinclude #-fsanitize=address -Wall -Wextra
 SRC_DIR = src
 BUILD_DIR = build
 BIN_DIR = bin

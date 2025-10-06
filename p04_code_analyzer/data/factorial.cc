@@ -20,19 +20,25 @@ int Factorial(int number) {
       return 1;
     default:
       int factorial = 1;
-      for (int i = 1; i <= number; ++i) {
+      double probando {0.0};
+      for (int i = 1; i <= number; ++i) { //hola
         factorial *= i;
       }
-      return factorial;
+      return factorial; // adios
   }
 }
 
 int main() {
   std::cout << "Introduzca el numero de factoriales a calcular: ";
   int limit;
+  int probando {0};
+  /**
+   * Prueba comentario multilinea
+   * Hola //soto
+   */
   std::cin >> limit;
     for (int i = 1; i <= limit; ++i) {
-      std::cout << i << "! = " << Factorial(i) << std::endl; 
+      std::cout << i << "! = " << Factorial(i) << std::endl;  // Comentario al final de la linea
     }
     return 0;
 }

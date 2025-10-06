@@ -38,10 +38,10 @@ struct MatchResult {
 
 bool CheckFile(const std::string& file_name);
 bool CheckParameters(int argc, char* argv[]);
+std::string CleanCode(const std::string& code);
 void ReadCode(const std::string& input_file, MatchResult& result);
 void OutputResults(std::ostream& os, const MatchResult& result);
 void PrintResults(const MatchResult& result);
 void WriteResults(const std::string& output_file, const MatchResult& result);
-
 
 #endif // FUNCTIONS_H

@@ -26,7 +26,6 @@ class Image {
 
 int main() {
   const std::string kHello{"Hello!"};
-
   for (auto character : kHello) {  // character will be a copy of the current// string element (char)
     std::cout << "[" << character << "]";
   }
