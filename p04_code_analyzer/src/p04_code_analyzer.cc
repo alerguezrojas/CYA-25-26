@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   }
 
   MatchResult result;
-  result.program_name_ = argv[0];
+  result.program_name_ = input_file;
 
   ReadCode(input_file, result);
 

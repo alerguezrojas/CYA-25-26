@@ -15,72 +15,74 @@
 #include "comment.h"
 
 void Comment::SearchComment(const std::string& line, int line_number) {
+  static bool in_description = false;
+  static Comment current_block;
+
   std::regex single_comment(R"(^\s*//(.*))");
-  std::regex start_description(R"(\s*\/\*.*\s*)");
-  std::regex end_description(R"(\s*.*\*\/\s*)");
+  std::regex start_block(R"(^\s*/\*.*)");
+  std::regex end_block(R"(.*\*/\s*$)");
   std::smatch match;
 
-  static bool in_description = false;
-  static Comment description_comment;
-
+  // Comentario de una línea
   if (std::regex_search(line, match, single_comment)) {
     Comment comment;
     comment.type_ = "Single";
     comment.content_ = match.str(1);
     comment.start_line_ = line_number;
+    comment.end_line_ = line_number;
     comments_.push_back(comment);
-  } else if (std::regex_search(line, match, start_description)) {
+    return;
+  }
+
+  // Comienzo de bloque /* ... */
+  if (std::regex_search(line, match, start_block)) {
     in_description = true;
-    if (line_number == 1) {
-      description_comment.type_ = "Description";
-    } else {
-      description_comment.type_ = "Multiple";
-    }
-    description_comment.start_line_ = line_number;
-    description_comment.content_lines_.push_back(match.str(1));
-  } else if (in_description) {
-    if (std::regex_search(line, match, end_description)) {
-      in_description = false;
-      description_comment.content_lines_.push_back(match.str(1));
-      comments_.push_back(description_comment);
-      description_comment.content_lines_.clear();
-    } else {
-      description_comment.content_lines_.push_back(line);
-    }
+    current_block = Comment();  // reiniciar bloque
+    current_block.start_line_ = line_number;
+    current_block.type_ = (line_number == 1 ? "Description" : "Multiple");
   }
 
   if (in_description) {
-    description_comment.end_line_ = line_number + 1;
+    current_block.content_lines_.push_back(line);
   }
-}
 
-std::ostream& operator<<(std::ostream& os, const Comment& comments) {
-  for (auto comment : comments.comments_) {
-    if (comment.type_ == "Single") {
-      os << "[Line " << comment.start_line_ << "] //" << comment.content_ << std::endl;
-    } else if (comment.type_ == "Description") {
-      os << "[Line " << comment.start_line_ << "-" << comment.end_line_ << "] DESCRIPTION "<< std::endl;
-    } else if (comment.type_ == "Multiple") {
-      os << "[Line " << comment.start_line_ << "-" << comment.end_line_ << "] MULTIPLE" << std::endl;
-    }
-    return os;
+  // Fin de bloque */ ...
+  if (in_description && std::regex_search(line, match, end_block)) {
+    in_description = false;
+    current_block.end_line_ = line_number;
+    comments_.push_back(current_block);
+    current_block.content_lines_.clear();
   }
 }
 
 std::string Comment::PrintDescription() const {
-  std::string description;
-  for (auto comment : comments_) {
+  std::ostringstream oss;
+  for (const auto& comment : comments_) {
     if (comment.type_ == "Description") {
-      description += "/**";
-      for (auto line : comment.content_lines_) {
-        description += line + "\n";
+      for (const auto& line : comment.content_lines_) {
+        oss << line << "\n";
       }
-      description += "*/\n";
     }
   }
-
-  return description;
+  return oss.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const Comment& comments) {
+  for (const auto& comment : comments.comments_) {
+    if (comment.type_ == "Single") {
+      os << "[Line " << comment.start_line_ << "] // " << comment.content_ << "\n";
+    } else if (comment.type_ == "Multiple") {
+      os << "[Line " << comment.start_line_ << "-" << comment.end_line_ << "] MULTIPLE\n";
+      for (const auto& line : comment.content_lines_) {
+        os << line << "\n";
+      }
+    } else if (comment.type_ == "Description") {
+      os << "[Line " << comment.start_line_ << "-" << comment.end_line_ << "] DESCRIPTION\n";
+    }
+  }
+  return os;
+}
+
 
 
 

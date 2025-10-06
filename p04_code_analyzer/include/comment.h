@@ -19,6 +19,8 @@
 #include <vector>
 #include <regex>
 #include <string>
+#include <sstream>
+
 
 class Comment {
   public:
