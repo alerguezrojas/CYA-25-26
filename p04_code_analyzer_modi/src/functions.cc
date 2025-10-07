@@ -194,6 +194,8 @@ void ReadCode(const std::string& input_file, MatchResult& result) {
     // Buscar variables y bucles solo en código limpio
     result.variable_.SearchVariable(line, code_line_number);
     result.loop_.SearchLoop(line, code_line_number);
+      // Buscar estructuras if/else
+      result.ifelse_.SearchIfElse(line, code_line_number);
 
     // Detección de función main (solo si aún no fue encontrada)
     if (!result.main_found_) {
@@ -240,6 +242,9 @@ void OutputResults(std::ostream& out, MatchResult& result) {
 
   out << "COMMENTS:\n";
   out << result.line_comment_;
+  
+    out << "IFELSE:\n";
+    out << result.ifelse_ << "\n";
 }
 
 /**

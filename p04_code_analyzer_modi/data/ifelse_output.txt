@@ -1,0 +1,21 @@
+PROGRAM: ifelse_test.cc
+
+DESCRIPTION:
+No description found.
+
+VARIABLES:
+[Line 4] INT: x = 5
+
+STATEMENTS:
+
+MAIN:
+True
+
+COMMENTS:
+[Line 12] // inline else if in same line example
+IFELSE:
+[Line 5] IF-ELSE: if
+[Line 7] IF-ELSE: else if
+[Line 9] IF-ELSE: else
+[Line 13] IF-ELSE: if
+
