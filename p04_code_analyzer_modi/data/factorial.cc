@@ -32,6 +32,10 @@ int main() {
   std::cout << "Introduzca el numero de factoriales a calcular: ";
   int limit;
   int probando {0};
+
+  if (probando = 0) {
+    std::cout << "HOLA" << std::endl;
+  }
   /**
    * Prueba comentario multilinea
    * Hola //soto

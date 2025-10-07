@@ -20,7 +20,7 @@ VARIABLES:
 
 STATEMENTS:
 [Line 24] LOOP: for
-[Line 40] LOOP: for
+[Line 44] LOOP: for
 
 MAIN:
 True
@@ -30,11 +30,13 @@ COMMENTS:
 [Line 15] // Returns the factorial of the argument
 [Line 24] //hola
 [Line 27] // adios
-[Line 35-38] MULTIPLE
+[Line 39-42] MULTIPLE
   /**
    * Prueba comentario multilinea
    * Hola //soto
    */
-[Line 41] // Comentario al final de la linea
+[Line 45] // Comentario al final de la linea
+
 IFELSE:
+[Line 36] IF-ELSE: if
 
