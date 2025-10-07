@@ -18,6 +18,7 @@
 #include "variable.h"
 #include "loop.h"
 #include "comment.h"
+#include "define.h"
 
 #include <iostream>
 #include <fstream>
@@ -30,6 +31,7 @@ struct MatchResult {
   std::string program_name_;
   Variable variable_;
   Loop loop_;
+  Define define_;
   bool main_found_ = false;
   int line_number_ = 1;
   Comment line_comment_;

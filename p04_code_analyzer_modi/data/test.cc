@@ -12,6 +12,8 @@
 #include <iostream>
 #include <string>
 
+#define MAX_SIZE 100  // Maximum size of the array
+
 
 #ifndef PROGRAM_TEST_H
 #define PROGRAM_TEST_H

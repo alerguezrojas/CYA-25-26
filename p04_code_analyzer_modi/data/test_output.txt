@@ -1,0 +1,40 @@
+PROGRAM: test.cc
+
+DESCRIPTION:
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Computabilidad y Algoritmia
+ *
+ * @author F. de Sande
+ * @date Oct 25 2021
+ * @brief Test program to use as input in the Regular Expressions lab assignment
+ */
+
+VARIABLES:
+[Line 25] INT: rows_ = 0
+[Line 26] INT: cols_ = 0
+[Line 42] INT: my_var
+
+STATEMENTS:
+[Line 31] LOOP: for
+[Line 37] LOOP: for
+[Line 41] LOOP: while
+
+DEFINES:
+[Line 15] DEFINE: MAX_SIZE = 100  
+[Line 19] DEFINE: PROGRAM_TEST_H
+
+MAIN:
+True
+
+COMMENTS:
+[Line 1-10] DESCRIPTION
+[Line 15] // Maximum size of the array
+[Line 23] /// Function Member
+[Line 25] /// Data members
+[Line 31] // character will be a copy of the current// string element (char)
+[Line 37] // element is a const reference to the
+[Line 38] // currently iterated array element
+[Line 48] // PROGRAM_TEST_H
