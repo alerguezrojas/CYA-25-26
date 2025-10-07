@@ -1,5 +1,4 @@
-// Universidad de La Laguna
-// Archivo ifelse.cc: Implementacion de la clase IfElse
+// modi: archivo ifelse.cc: Implementacion de la clase IfElse
 
 #include "ifelse.h"
 #include <regex>

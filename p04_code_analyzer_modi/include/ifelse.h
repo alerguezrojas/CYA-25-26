@@ -1,5 +1,4 @@
-// Universidad de La Laguna
-// Archivo ifelse.h: Declaracion de la clase IfElse (deteccion de if/else)
+// modi: archivo ifelse.h: Declaracion de la clase IfElse (deteccion de if/else)
 
 #ifndef IFELSE_H
 #define IFELSE_H
