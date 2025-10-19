@@ -19,6 +19,7 @@
 #include <string>
 
 #include "symbol.h"
+#include "transition.h"
 
 class Transition;
 

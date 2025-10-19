@@ -50,7 +50,13 @@ std::string State::GetStateId() const {
 }
 
 std::set<Transition> State::GetTransitions(Symbol symbol) const {
-  
+  std::set<Transition> transitions_symbol;
+  for (const auto& transition : transitions_) {
+    if (transition.GetTransitionSymbol() == symbol) {
+      transitions_symbol.insert(transition);
+    }
+  }
+  return transitions_symbol;
 }
 
 bool State::operator<(const State& other) const {
