@@ -52,6 +52,7 @@
         "regex": "cpp",
         "codecvt": "cpp",
         "ratio": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "map": "cpp"
     }
 }

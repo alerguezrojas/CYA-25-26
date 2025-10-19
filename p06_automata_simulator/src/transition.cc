@@ -14,34 +14,20 @@
 
 #include "transition.h"
 
-Transition::Transition(const State& origin_state, const Symbol& transition_symbol,
-                       const State& destination_state) {
-  origin_state_ = origin_state;
-  transition_symbol_ = transition_symbol;
-  destination_state_ = destination_state;
-}
+Transition::Transition(const std::string& origin_id,
+                       const Symbol& transition_symbol,
+                       const std::string& destination_id)
+    : origin_id_(origin_id),
+      transition_symbol_(transition_symbol),
+      destination_id_(destination_id) {}
 
-State Transition::GetOriginState() const {
-  return origin_state_;
-}
-
-Symbol Transition::GetTransitionSymbol() const {
-  return transition_symbol_;
-}
-
-State Transition::GetDestinationState() const {
-  return destination_state_;
-}
+std::string Transition::GetOriginId() const { return origin_id_; }
+Symbol Transition::GetTransitionSymbol() const { return transition_symbol_; }
+std::string Transition::GetDestinationId() const { return destination_id_; }
 
 bool Transition::operator<(const Transition& other) const {
-  if (origin_state_ < other.origin_state_) {
-    return true;
-  } else if (origin_state_ == other.origin_state_) {
-    if (transition_symbol_ < other.transition_symbol_) {
-      return true;
-    } else if (transition_symbol_ == other.transition_symbol_) {
-      return destination_state_ < other.destination_state_;
-    }
-  }
-  return false;
+  if (origin_id_ != other.origin_id_) return origin_id_ < other.origin_id_;
+  if (!(transition_symbol_ == other.transition_symbol_))
+    return transition_symbol_ < other.transition_symbol_;
+  return destination_id_ < other.destination_id_;
 }

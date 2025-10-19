@@ -15,24 +15,29 @@
 #ifndef TRANSITION_H
 #define TRANSITION_H
 
-#include "state.h"
+#include <string>
 #include "symbol.h"
 
+/**
+ * @brief Clase que representa una transición (usa los IDs de estado para evitar copias).
+ */
 class Transition {
-  public:
-    Transition(const State& origin_state, const Symbol& transition_symbol,
-               const State& destination_state);
-    ~Transition() = default;
-    State GetOriginState() const;
-    Symbol GetTransitionSymbol() const;
-    State GetDestinationState() const;
-    bool operator<(const Transition& other) const;
+ public:
+  Transition(const std::string& origin_id,
+             const Symbol& transition_symbol,
+             const std::string& destination_id);
+  ~Transition() = default;
 
-  private:
-    State origin_state_;
-    Symbol transition_symbol_;
-    State destination_state_;
+  std::string GetOriginId() const;
+  Symbol GetTransitionSymbol() const;
+  std::string GetDestinationId() const;
 
+  bool operator<(const Transition& other) const;
+
+ private:
+  std::string origin_id_;
+  Symbol transition_symbol_;
+  std::string destination_id_;
 };
 
 #endif  // TRANSITION_H

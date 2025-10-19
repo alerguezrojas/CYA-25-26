@@ -13,6 +13,7 @@
 //   19/10/2025 - Creacion del codigo version 1.0
 
 #include "state.h"
+#include "transition.h"
 
 State::State() {
   state_id_ = "";
@@ -50,13 +51,13 @@ std::string State::GetStateId() const {
 }
 
 std::set<Transition> State::GetTransitions(Symbol symbol) const {
-  std::set<Transition> transitions_symbol;
-  for (const auto& transition : transitions_) {
-    if (transition.GetTransitionSymbol() == symbol) {
-      transitions_symbol.insert(transition);
+  std::set<Transition> result;
+  for (const auto& t : transitions_) {
+    if (t.GetTransitionSymbol() == symbol) {
+      result.insert(t);
     }
   }
-  return transitions_symbol;
+  return result;
 }
 
 bool State::operator<(const State& other) const {

@@ -12,25 +12,47 @@
 // Historial de revisiones
 //   19/10/2025 - Creacion del codigo version 1.0
 
+// automata.cc
 #include "automata.h"
 
-Alphabet Automata::GetAlphabet() const {
+void Automata::SetAlphabet(const Alphabet& alphabet) {
+  alphabet_ = alphabet;
+}
+
+void Automata::SetStates(const std::set<State>& states) {
+  states_ = states;
+  states_number_ = static_cast<int>(states.size());
+}
+
+void Automata::SetStartState(const State& start_state) {
+  start_state_ = start_state;
+}
+
+void Automata::SetAcceptStates(const std::set<State>& accept_states) {
+  accept_states_ = accept_states;
+}
+
+void Automata::SetTransitions(const std::set<Transition>& transitions) {
+  transitions_ = transitions;
+}
+
+const Alphabet& Automata::GetAlphabet() const {
   return alphabet_;
 }
 
-std::set<State> Automata::GetStates() const {
+const std::set<State>& Automata::GetStates() const {
   return states_;
 }
 
-State Automata::GetStartState() const {
+const State& Automata::GetStartState() const {
   return start_state_;
 }
 
-std::set<State> Automata::GetAcceptStates() const {
+const std::set<State>& Automata::GetAcceptStates() const {
   return accept_states_;
 }
 
-std::set<Transition> Automata::GetTransitions() const {
+const std::set<Transition>& Automata::GetTransitions() const {
   return transitions_;
 }
 
@@ -42,28 +64,33 @@ bool Automata::AlphabetContainsSymbol(const Symbol& symbol) const {
   return alphabet_.Contains(symbol);
 }
 
-std::ostream& operator<<(std::ostream& os, const Automata& automata) {
-  os << "Alphabet: " << automata.alphabet_ << "\n";
-  os << "Number of States: " << automata.states_number_ << "\n";
-  os << "States:\n";
-  for (const auto& state : automata.states_) {
-    os << "  State ID: " << state.GetStateId();
-    if (state.IsStartState()) {
-      os << " (Start State)";
-    }
-    if (state.IsAcceptState()) {
-      os << " (Accept State)";
-    }
-    os << "\n";
+void Automata::Print(std::ostream& os) const {
+  os << "Alphabet: " << alphabet_ << "\n";
+  os << "Number of States: " << states_number_ << "\n";
+  os << "Start State: " << start_state_.GetStateId() << "\n";
+
+  os << "Accept States: {";
+  bool first = true;
+  for (const auto& st : accept_states_) {
+    if (!first) os << ", ";
+    os << st.GetStateId();
+    first = false;
   }
+  os << "}\n";
+
   os << "Transitions:\n";
-  for (const auto& transition : automata.transitions_) {
-    os << "  From State: " << transition.GetOriginState().GetStateId()
-       << " -- Symbol: " << transition.GetTransitionSymbol()
-       << " --> To State: " << transition.GetDestinationState().GetStateId() << "\n";
+  for (const auto& t : transitions_) {
+    os << "  (" << t.GetOriginId() << ", "
+       << t.GetTransitionSymbol().GetSymbol() << ") -> "
+       << t.GetDestinationId() << "\n";
   }
+}
+
+std::ostream& operator<<(std::ostream& os, const Automata& automata) {
+  automata.Print(os);
   return os;
 }
+
 
 
 

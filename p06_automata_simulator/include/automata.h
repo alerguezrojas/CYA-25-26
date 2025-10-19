@@ -12,11 +12,14 @@
 // Historial de revisiones
 //   19/10/2025 - Creacion del codigo version 1.0
 
+// automata.h
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
 #include <set>
-
+#include <string>
+#include <iostream>
+#include <stdexcept>
 
 #include "alphabet.h"
 #include "state.h"
@@ -24,26 +27,50 @@
 #include "symbol.h"
 #include "chain.h"
 
+/**
+ * @brief Clase base abstracta para representar autómatas finitos.
+ *        Contiene la estructura común a DFA y NFA.
+ */
 class Automata {
-  public:
-    Alphabet GetAlphabet() const;
-    std::set<State> GetStates() const;
-    State GetStartState() const;
-    std::set<State> GetAcceptStates() const;
-    std::set<Transition> GetTransitions() const;
-    int GetStatesNumber() const;
-    bool AlphabetContainsSymbol(const Symbol& symbol) const;
-    virtual bool ReadChains(const Chain& chain) = 0;
-    friend std::ostream& operator<<(std::ostream& os, const Automata& automata);
+ public:
+  Automata() = default;
+  virtual ~Automata() = default;
 
+  // Setters (para construcción desde fichero)
+  void SetAlphabet(const Alphabet& alphabet);
+  void SetStates(const std::set<State>& states);
+  void SetStartState(const State& start_state);
+  void SetAcceptStates(const std::set<State>& accept_states);
+  void SetTransitions(const std::set<Transition>& transitions);
 
-  private:
-    Alphabet alphabet_;
-    std::set<State> states_;
-    State start_state_;
-    std::set<State> accept_states_;
-    std::set<Transition> transitions_;
-    int states_number_;
+  // Getters
+  const Alphabet& GetAlphabet() const;
+  const std::set<State>& GetStates() const;
+  const State& GetStartState() const;
+  const std::set<State>& GetAcceptStates() const;
+  const std::set<Transition>& GetTransitions() const;
+
+  int GetStatesNumber() const;
+
+  // Verifica si el símbolo pertenece al alfabeto
+  bool AlphabetContainsSymbol(const Symbol& symbol) const;
+
+  // Método virtual puro para la simulación
+  virtual bool ReadChains(const Chain& chain) const = 0;
+
+  // Imprimir información general del autómata
+  virtual void Print(std::ostream& os) const;
+
+ protected:
+  Alphabet alphabet_;
+  std::set<State> states_;
+  State start_state_;
+  std::set<State> accept_states_;
+  std::set<Transition> transitions_;
+  int states_number_ = 0;
 };
 
+std::ostream& operator<<(std::ostream& os, const Automata& automata);
+
 #endif  // AUTOMATA_H
+
