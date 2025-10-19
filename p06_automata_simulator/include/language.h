@@ -11,6 +11,7 @@
 // Referencias:
 // Historial de revisiones
 //   20/09/2025 - Creacion del codigo version 1.0
+//   19/10/2025 - Añadido setter para el lenguaje version 1.1
 
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
