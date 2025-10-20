@@ -31,7 +31,7 @@ class Language {
     friend std::ostream& operator<<(std::ostream& os, const Language& language);
 
   private:
-    std::set<Chain> language_;
+    std::set<Chain> language_; ///< Set of chains in the language
 };
 
 #endif  // LANGUAGE_H

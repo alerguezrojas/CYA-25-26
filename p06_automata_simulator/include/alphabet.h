@@ -36,7 +36,7 @@ class Alphabet {
     friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
 
   private:
-    std::set<Symbol> alphabet_;
+    std::set<Symbol> alphabet_; ///< Set of symbols in the alphabet
     
 };
 

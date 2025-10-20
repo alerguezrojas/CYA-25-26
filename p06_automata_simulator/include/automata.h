@@ -35,39 +35,29 @@ class Automata {
  public:
   Automata() = default;
   virtual ~Automata() = default;
-
-  // Setters (para construcción desde fichero)
   void SetAlphabet(const Alphabet& alphabet);
   void SetStates(const std::set<State>& states);
   void SetStartState(const State& start_state);
   void SetAcceptStates(const std::set<State>& accept_states);
   void SetTransitions(const std::set<Transition>& transitions);
-
-  // Getters
   const Alphabet& GetAlphabet() const;
   const std::set<State>& GetStates() const;
   const State& GetStartState() const;
   const std::set<State>& GetAcceptStates() const;
   const std::set<Transition>& GetTransitions() const;
-
   int GetStatesNumber() const;
-
-  // Verifica si el símbolo pertenece al alfabeto
   bool AlphabetContainsSymbol(const Symbol& symbol) const;
-
-  // Método virtual puro para la simulación
+  // Virtual method for simulation
   virtual bool ReadChains(const Chain& chain) const = 0;
-
-  // Imprimir información general del autómata
   virtual void Print(std::ostream& os) const;
 
  protected:
-  Alphabet alphabet_;
-  std::set<State> states_;
-  State start_state_;
-  std::set<State> accept_states_;
-  std::set<Transition> transitions_;
-  int states_number_ = 0;
+  Alphabet alphabet_; ///< Alphabet of the automaton
+  std::set<State> states_; ///< Set of states in the automaton
+  State start_state_; ///< Start state of the automaton
+  std::set<State> accept_states_; ///< Set of accept states
+  std::set<Transition> transitions_; ///< Set of transitions
+  int states_number_ = 0; ///< Number of states in the automaton
 };
 
 std::ostream& operator<<(std::ostream& os, const Automata& automata);

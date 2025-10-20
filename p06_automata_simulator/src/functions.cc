@@ -1,4 +1,17 @@
-// functions.cc
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2°
+// Práctica 6: Diseño e implementación de un simulador de autómatas finitos
+// Autor: Alejandro Rodríguez Rojas
+// Correro: alu0101317038@ull.edu.es
+// Fecha de entrega: 21/10/2025
+// Archivo functions.cc: Fichero que contiene las implementaciones de las funciones auxiliares
+// Referencias:
+// Historial de revisiones
+//   19/10/2025 - Creacion del codigo version 1.0
+
 #include "functions.h"
 
 #include <fstream>
@@ -12,17 +25,19 @@
 #include "state.h"
 #include "transition.h"
 
-// static bool IsBlank(const std::string& s) {
-//   for (char c : s)
-//     if (!std::isspace(static_cast<unsigned char>(c))) return false;
-//   return true;
-// }
-
+/**
+ * @brief Prints the basic usage instructions.
+ * @param prog The program name.
+ */
 void PrintUsage(const std::string& prog) {
   std::cerr << "Modo de empleo: " << prog << " data/input.fa data/input.txt\n"
             << "Pruebe '" << prog << " --help' para más información.\n";
 }
 
+/**
+ * @brief Prints detailed help information.
+ * @param prog The program name.
+ */
 void PrintHelp(const std::string& prog) {
   std::cout
     << prog << " -- Simulador de autómatas finitos no deterministas (NFA)\n\n"
@@ -38,13 +53,19 @@ void PrintHelp(const std::string& prog) {
     << "    luego, <simbolo> <destino> repetido n_trans veces (use '&' para epsilon).\n";
 }
 
+/**
+ * @brief Loads an NFA from a .fa file.
+ * @param path The path to the .fa file.
+ * @param error_out Output parameter for error messages.
+ * @return An optional NFA object; std::nullopt on failure.
+ */
 std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_out) {
   std::ifstream fin(path);
   if (!fin) { error_out = "No se pudo abrir el fichero: " + path; return std::nullopt; }
 
   std::string line;
 
-  // Línea 1: alfabeto
+  // Line 1: alphabet
   if (!std::getline(fin, line)) { error_out = "Fichero .fa incompleto (alfabeto)."; return std::nullopt; }
   std::istringstream iss_alpha(line);
   std::string token;
@@ -56,13 +77,13 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
   }
   Alphabet alphabet(alphabet_set);
 
-  // Línea 2: número de estados
+  // Line 2: number of states
   if (!std::getline(fin, line)) { error_out = "Fichero .fa incompleto (número de estados)."; return std::nullopt; }
   size_t n_states;
   try { n_states = std::stoul(line); }
   catch (...) { error_out = "Número de estados inválido."; return std::nullopt; }
 
-  // Línea 3: estado inicial
+  // Line 3: start state ID
   if (!std::getline(fin, line)) { error_out = "Fichero .fa incompleto (estado inicial)."; return std::nullopt; }
   std::string start_id = line;
 
@@ -70,10 +91,10 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
   struct PendingState { std::string id; bool is_accept; std::vector<PendingTransition> transitions; };
   std::vector<PendingState> pending_states;
 
-  // Leer N líneas de estados
+  // Read states
   for (size_t i = 0; i < n_states; ++i) {
     if (!std::getline(fin, line)) { error_out = "Faltan líneas para definir todos los estados."; return std::nullopt; }
-    // permitir líneas en blanco
+    // blank lines allowed
     auto trim = [](std::string& s){ 
       auto b = s.find_first_not_of(" \t\r\n"); auto e = s.find_last_not_of(" \t\r\n");
       if (b == std::string::npos) { s.clear(); return; } s = s.substr(b, e - b + 1);
@@ -96,13 +117,13 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
     pending_states.push_back(std::move(ps));
   }
 
-  // Crear mapa id -> State (sin transiciones primero)
+  // Create map id -> State (without transitions first)
   std::map<std::string, State> id_to_state;
   for (const auto& ps : pending_states) {
     id_to_state.emplace(ps.id, State(ps.id, ps.id == start_id, ps.is_accept));
   }
 
-  // Construir transiciones (por IDs) y asignarlas a cada State
+  // Construct transitions and update States
   std::set<Transition> transitions;
   for (auto& ps : pending_states) {
     std::set<Transition> outgoing;
@@ -115,11 +136,11 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
       outgoing.insert(t);
       transitions.insert(t);
     }
-    // actualizar el State con sus transiciones salientes
+    // update State with its transitions
     id_to_state[ps.id] = State(ps.id, ps.id == start_id, ps.is_accept, outgoing);
   }
 
-  // Reconstruir conjuntos de estados con los States ya actualizados
+  // reconstruct state sets with updated States
   std::set<State> all_states;
   std::set<State> accept_states;
   for (const auto& kv : id_to_state) {
@@ -127,17 +148,22 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
     if (kv.second.IsAcceptState()) accept_states.insert(kv.second);
   }
 
-  // Verificación del estado inicial
+  // Verify start state exists
   auto it_start = id_to_state.find(start_id);
   if (it_start == id_to_state.end()) { error_out = "El estado inicial no se encuentra definido."; return std::nullopt; }
   State start_state = it_start->second;
 
-  // Construir NFA
+  // Construct and return NFA
   NFA nfa(alphabet, all_states, start_state, accept_states, transitions);
   return nfa;
 }
 
-
+/**
+ * @brief Loads chains from a text file.
+ * @param path The path to the text file.
+ * @param error_out Output parameter for error messages.
+ * @return A vector of pairs (label, Chain); empty vector on failure.
+ */
 std::vector<std::pair<std::string, Chain>>
 LoadChainsFromTxt(const std::string& path, std::string& error_out) {
   std::ifstream fin(path);
@@ -152,28 +178,28 @@ LoadChainsFromTxt(const std::string& path, std::string& error_out) {
   while (std::getline(fin, line)) {
     if (line.empty()) continue;
 
-    // Eliminar espacios en blanco al inicio y final
+    // Eliminate leading/trailing whitespace
     line.erase(0, line.find_first_not_of(" \t\r\n"));
     line.erase(line.find_last_not_of(" \t\r\n") + 1);
 
     if (line.empty()) continue;
 
-    // Si la línea es solo "&", significa cadena vacía
+    // If the line is just "&", it means empty chain
     if (line == "&") {
       result.emplace_back("", Chain("&"));
       continue;
     }
 
-    // Si hay un número inicial seguido de cadena (formato "1 cadena")
+    // If there is an initial number followed by chain (format "1 chain")
     std::istringstream iss(line);
     std::string first, second;
     iss >> first >> second;
 
     if (!second.empty() && std::all_of(first.begin(), first.end(), ::isdigit)) {
-      // línea tipo "1 cadena"
+      // type "1 chain"
       result.emplace_back(first, Chain(second));
     } else {
-      // línea tipo "cadena"
+      // type "chain"
       result.emplace_back("", Chain(first));
     }
   }
@@ -181,13 +207,17 @@ LoadChainsFromTxt(const std::string& path, std::string& error_out) {
   return result;
 }
 
-
+/**
+ * @brief Simulates the NFA on a list of chains and reports results.
+ * @param nfa The NFA to simulate.
+ * @param inputs A vector of pairs (label, Chain) to simulate.
+ */
 void SimulateAndReport(const NFA& nfa,
                        const std::vector<std::pair<std::string, Chain>>& inputs) {
   for (const auto& [label, chain] : inputs) {
     bool accepted = nfa.ReadChains(chain);
 
-    // Construir cadena legible
+    // Construct chain string representation
     std::string word;
     if (chain.GetChain().empty()) word = "&";
     else {

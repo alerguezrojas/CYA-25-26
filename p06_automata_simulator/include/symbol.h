@@ -34,7 +34,7 @@ class Symbol {
     friend std::istream& operator>>(std::istream& is, Symbol& symbol);
 
   private:
-    char symbol_;
+    char symbol_; ///< The character representing the symbol
 };
 
 #endif  // SYMBOL_H

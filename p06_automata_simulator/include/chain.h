@@ -44,8 +44,8 @@ class Chain {
     friend std::ostream& operator<<(std::ostream& os, const Chain& chain);
     friend bool operator<(const Chain& chain1, const Chain& chain2);
   private:
-    std::vector<Symbol> chain_;
-    Alphabet alphabet_;
+    std::vector<Symbol> chain_; ///< Sequence of symbols in the chain
+    Alphabet alphabet_; ///< Associated alphabet
 };
 
 inline bool operator!=(const Symbol& lhs, const Symbol& rhs) {

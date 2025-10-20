@@ -36,11 +36,11 @@ class State {
   bool operator==(const State& other) const;
 
  private:
-  std::string state_id_;
-  bool start_state_;
-  bool accept_state_;
-  int transitions_number_;
-  std::set<Transition> transitions_;
+  std::string state_id_; ///< Unique identifier for the state
+  bool start_state_; ///< Indicates if this is the start state
+  bool accept_state_; ///< Indicates if this is an accept state
+  int transitions_number_; ///< Number of transitions from this state
+  std::set<Transition> transitions_; ///< Set of transitions from this state
 };
 
 #endif  // STATE_H
