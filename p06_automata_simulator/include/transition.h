@@ -22,19 +22,19 @@
  * @brief Class representing a transition between states in an automaton.
  */
 class Transition {
- public:
-  Transition(const std::string& origin_id, const Symbol& transition_symbol,
-             const std::string& destination_id);
-  ~Transition() = default;
-  std::string GetOriginId() const;
-  Symbol GetTransitionSymbol() const;
-  std::string GetDestinationId() const;
-  bool operator<(const Transition& other) const;
+  public:
+    Transition(const std::string& origin_id, const Symbol& transition_symbol,
+               const std::string& destination_id);
+    ~Transition() = default;
+    std::string GetOriginId() const;
+    Symbol GetTransitionSymbol() const;
+    std::string GetDestinationId() const;
+    bool operator<(const Transition& other) const;
 
- private:
-  std::string origin_id_; ///< ID of the origin state
-  Symbol transition_symbol_; ///< Symbol triggering the transition
-  std::string destination_id_; ///< ID of the destination state
+  private:
+    std::string origin_id_; ///< ID of the origin state
+    Symbol transition_symbol_; ///< Symbol triggering the transition
+    std::string destination_id_; ///< ID of the destination state
 };
 
 #endif  // TRANSITION_H

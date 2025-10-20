@@ -32,32 +32,32 @@
  *        Contiene la estructura común a DFA y NFA.
  */
 class Automata {
- public:
-  Automata() = default;
-  virtual ~Automata() = default;
-  void SetAlphabet(const Alphabet& alphabet);
-  void SetStates(const std::set<State>& states);
-  void SetStartState(const State& start_state);
-  void SetAcceptStates(const std::set<State>& accept_states);
-  void SetTransitions(const std::set<Transition>& transitions);
-  const Alphabet& GetAlphabet() const;
-  const std::set<State>& GetStates() const;
-  const State& GetStartState() const;
-  const std::set<State>& GetAcceptStates() const;
-  const std::set<Transition>& GetTransitions() const;
-  int GetStatesNumber() const;
-  bool AlphabetContainsSymbol(const Symbol& symbol) const;
-  // Virtual method for simulation
-  virtual bool ReadChains(const Chain& chain) const = 0;
-  virtual void Print(std::ostream& os) const;
+  public:
+    Automata() = default;
+    virtual ~Automata() = default;
+    void SetAlphabet(const Alphabet& alphabet);
+    void SetStates(const std::set<State>& states);
+    void SetStartState(const State& start_state);
+    void SetAcceptStates(const std::set<State>& accept_states);
+    void SetTransitions(const std::set<Transition>& transitions);
+    const Alphabet& GetAlphabet() const;
+    const std::set<State>& GetStates() const;
+    const State& GetStartState() const;
+    const std::set<State>& GetAcceptStates() const;
+    const std::set<Transition>& GetTransitions() const;
+    int GetStatesNumber() const;
+    bool AlphabetContainsSymbol(const Symbol& symbol) const;
+    // Virtual method for simulation
+    virtual bool ReadChains(const Chain& chain) const = 0;
+    virtual void Print(std::ostream& os) const;
 
- protected:
-  Alphabet alphabet_; ///< Alphabet of the automaton
-  std::set<State> states_; ///< Set of states in the automaton
-  State start_state_; ///< Start state of the automaton
-  std::set<State> accept_states_; ///< Set of accept states
-  std::set<Transition> transitions_; ///< Set of transitions
-  int states_number_ = 0; ///< Number of states in the automaton
+  protected:
+    Alphabet alphabet_; ///< Alphabet of the automaton
+    std::set<State> states_; ///< Set of states in the automaton
+    State start_state_; ///< Start state of the automaton
+    std::set<State> accept_states_; ///< Set of accept states
+    std::set<Transition> transitions_; ///< Set of transitions
+    int states_number_ = 0; ///< Number of states in the automaton
 };
 
 std::ostream& operator<<(std::ostream& os, const Automata& automata);

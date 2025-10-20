@@ -22,25 +22,25 @@
 class Transition;
 
 class State {
- public:
-  State();
-  State(const std::string& state_id, bool start_state, bool accept_state);
-  State(const std::string& state_id, bool start_state, bool accept_state,
-        std::set<Transition> transitions);
-  ~State() = default;
-  bool IsStartState() const;
-  bool IsAcceptState() const;
-  std::string GetStateId() const;
-  std::set<Transition> GetTransitions(Symbol symbol) const;
-  bool operator<(const State& other) const;
-  bool operator==(const State& other) const;
+  public:
+    State();
+    State(const std::string& state_id, bool start_state, bool accept_state);
+    State(const std::string& state_id, bool start_state, bool accept_state,
+          std::set<Transition> transitions);
+    ~State() = default;
+    bool IsStartState() const;
+    bool IsAcceptState() const;
+    std::string GetStateId() const;
+    std::set<Transition> GetTransitions(Symbol symbol) const;
+    bool operator<(const State& other) const;
+    bool operator==(const State& other) const;
 
- private:
-  std::string state_id_; ///< Unique identifier for the state
-  bool start_state_; ///< Indicates if this is the start state
-  bool accept_state_; ///< Indicates if this is an accept state
-  int transitions_number_; ///< Number of transitions from this state
-  std::set<Transition> transitions_; ///< Set of transitions from this state
+  private:
+    std::string state_id_; ///< Unique identifier for the state
+    bool start_state_; ///< Indicates if this is the start state
+    bool accept_state_; ///< Indicates if this is an accept state
+    int transitions_number_; ///< Number of transitions from this state
+    std::set<Transition> transitions_; ///< Set of transitions from this state
 };
 
 #endif  // STATE_H
