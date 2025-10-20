@@ -19,14 +19,14 @@
 // }
 
 void PrintUsage(const std::string& prog) {
-  std::cerr << "Modo de empleo: " << prog << " input.fa input.txt\n"
+  std::cerr << "Modo de empleo: " << prog << " data/input.fa data/input.txt\n"
             << "Pruebe '" << prog << " --help' para más información.\n";
 }
 
 void PrintHelp(const std::string& prog) {
   std::cout
     << prog << " -- Simulador de autómatas finitos no deterministas (NFA)\n\n"
-    << "Uso: " << prog << " input.fa input.txt\n\n"
+    << "Uso: " << prog << " data/input.fa data/input.txt\n\n"
     << "  input.fa  : especificación del autómata (alfabeto, estados, transiciones).\n"
     << "  input.txt : cadenas a simular (una por línea). Use '&' para cadena vacía.\n\n"
     << "Formato .fa (resumen):\n"
