@@ -12,11 +12,11 @@
 #include "state.h"
 #include "transition.h"
 
-static bool IsBlank(const std::string& s) {
-  for (char c : s)
-    if (!std::isspace(static_cast<unsigned char>(c))) return false;
-  return true;
-}
+// static bool IsBlank(const std::string& s) {
+//   for (char c : s)
+//     if (!std::isspace(static_cast<unsigned char>(c))) return false;
+//   return true;
+// }
 
 void PrintUsage(const std::string& prog) {
   std::cerr << "Modo de empleo: " << prog << " input.fa input.txt\n"
