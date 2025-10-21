@@ -39,7 +39,7 @@ class NFA : public Automata {
     NFA(const Alphabet& alphabet, const std::set<State>& states,
         const State& start_state, const std::set<State>& accept_states,
         const std::set<Transition>& transitions);
-    bool ReadChains(const Chain& chain) const override;
+    bool ReadChains(const Chain& chain, bool trace_mode = false) const override;
 
   private:
     std::set<std::string> EpsilonClosure(const std::set<std::string>& state_ids) const; ///< Calculates the ε-closure of a set of states.

@@ -30,7 +30,7 @@
  * @param prog The program name.
  */
 void PrintUsage(const std::string& prog) {
-  std::cerr << "Modo de empleo: " << prog << " data/input.fa data/input.txt\n"
+  std::cerr << "Modo de empleo: " << prog << " [--trace] data/input.fa data/input.txt\n"
             << "Pruebe '" << prog << " --help' para más información.\n";
 }
 
@@ -41,9 +41,15 @@ void PrintUsage(const std::string& prog) {
 void PrintHelp(const std::string& prog) {
   std::cout
     << prog << " -- Simulador de autómatas finitos no deterministas (NFA)\n\n"
-    << "Uso: " << prog << " data/input.fa data/input.txt\n\n"
+    << "Uso: " << prog << " [--trace] data/input.fa data/input.txt\n\n"
+    << "  --trace   : (opcional) muestra traza detallada de la simulación.\n"
     << "  input.fa  : especificación del autómata (alfabeto, estados, transiciones).\n"
     << "  input.txt : cadenas a simular (una por línea). Use '&' para cadena vacía.\n\n"
+    << "Con --trace se muestra para cada paso:\n"
+    << "  - Estados actuales\n"
+    << "  - Símbolo de entrada\n"
+    << "  - Transiciones aplicables (con el símbolo y con epsilon)\n"
+    << "  - Estados siguientes\n\n"
     << "Formato .fa (resumen):\n"
     << "  Línea 1: símbolos del alfabeto separados por espacios (no use '&').\n"
     << "  Línea 2: número total de estados (N).\n"
@@ -211,11 +217,13 @@ LoadChainsFromTxt(const std::string& path, std::string& error_out) {
  * @brief Simulates the NFA on a list of chains and reports results.
  * @param nfa The NFA to simulate.
  * @param inputs A vector of pairs (label, Chain) to simulate.
+ * @param trace_mode If true, prints detailed trace information during simulation.
  */
 void SimulateAndReport(const NFA& nfa,
-                       const std::vector<std::pair<std::string, Chain>>& inputs) {
+                       const std::vector<std::pair<std::string, Chain>>& inputs,
+                       bool trace_mode) {
   for (const auto& [label, chain] : inputs) {
-    bool accepted = nfa.ReadChains(chain);
+    bool accepted = nfa.ReadChains(chain, trace_mode);
 
     // Construct chain string representation
     std::string word;

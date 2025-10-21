@@ -34,14 +34,23 @@ int main(int argc, char* argv[]) {
     return 0;
   }
 
+  // Check for trace option
+  bool trace_mode = false;
+  int arg_offset = 0;
+  
+  if (argc >= 2 && std::string(argv[1]) == "--trace") {
+    trace_mode = true;
+    arg_offset = 1;
+  }
+
   // Check for correct number of arguments
-  if (argc != 3) {
+  if (argc != 3 + arg_offset) {
     PrintUsage(prog);
     return 1;
   }
 
-  const std::string fa_path  = argv[1];
-  const std::string txt_path = argv[2];
+  const std::string fa_path  = argv[1 + arg_offset];
+  const std::string txt_path = argv[2 + arg_offset];
 
   // Load NFA from file
   std::string error;
@@ -60,6 +69,6 @@ int main(int argc, char* argv[]) {
   }
 
   // Simulate and report results
-  SimulateAndReport(nfa, chains);
+  SimulateAndReport(nfa, chains, trace_mode);
   return 0;
 }

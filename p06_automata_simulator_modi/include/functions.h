@@ -28,6 +28,6 @@ std::optional<NFA> LoadNFAFromFile(const std::string& path, std::string& error_o
 std::vector<std::pair<std::string, Chain>> LoadChainsFromTxt(
     const std::string& path, std::string& error_out);
 void SimulateAndReport(const NFA& nfa, const std::vector<std::pair<std::string, 
-                       Chain>>& inputs);
+                       Chain>>& inputs, bool trace_mode = false);
 
 #endif  // FUNCTIONS_H

@@ -48,7 +48,7 @@ class Automata {
     int GetStatesNumber() const;
     bool AlphabetContainsSymbol(const Symbol& symbol) const;
     // Virtual method for simulation
-    virtual bool ReadChains(const Chain& chain) const = 0;
+    virtual bool ReadChains(const Chain& chain, bool trace_mode = false) const = 0;
     virtual void Print(std::ostream& os) const;
 
   protected:

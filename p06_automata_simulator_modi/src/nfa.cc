@@ -96,34 +96,122 @@ std::set<std::string> NFA::Move(const std::set<std::string>& from, const Symbol&
 /**
  * @brief Simulates reading a chain on the NFA.
  * @param chain Input chain to evaluate.
+ * @param trace_mode If true, prints detailed trace information during simulation.
  * @return true if the chain is accepted; false if rejected.
  */
-bool NFA::ReadChains(const Chain& chain) const {
+bool NFA::ReadChains(const Chain& chain, bool trace_mode) const {
   // Initial state → ε-closure({q0})
   std::set<std::string> current = { start_state_.GetStateId() };
   current = EpsilonClosure(current);
 
+  if (trace_mode) {
+    std::cout << "\n========== TRAZA DE SIMULACIÓN ==========\n";
+    std::cout << "Estado inicial: {" << start_state_.GetStateId() << "}\n";
+    std::cout << "Epsilon-closure inicial: {";
+    bool first = true;
+    for (const auto& sid : current) {
+      if (!first) std::cout << ", ";
+      std::cout << sid;
+      first = false;
+    }
+    std::cout << "}\n\n";
+  }
+
+  int step = 0;
   // Process each symbol in the chain
   for (const auto& sym : chain.GetChain()) {
     if (sym.GetSymbol() == '&') continue;  // '&' not consumed
     if (!alphabet_.Contains(sym)) {
+      if (trace_mode) {
+        std::cout << "Símbolo '" << sym.GetSymbol() << "' no está en el alfabeto. Rechazo inmediato.\n";
+      }
       return false;  // symbol out of alphabet → immediate rejection
+    }
+
+    if (trace_mode) {
+      std::cout << "Paso " << ++step << ":\n";
+      std::cout << "  Estados actuales: {";
+      bool first = true;
+      for (const auto& sid : current) {
+        if (!first) std::cout << ", ";
+        std::cout << sid;
+        first = false;
+      }
+      std::cout << "}\n";
+      std::cout << "  Símbolo de entrada: '" << sym.GetSymbol() << "'\n";
+      
+      // Show applicable transitions
+      std::cout << "  Transiciones aplicables:\n";
+      Symbol eps('&');
+      for (const auto& sid : current) {
+        const State* s = FindState(sid);
+        if (!s) continue;
+        
+        // Transitions with current symbol
+        auto trans = s->GetTransitions(sym);
+        for (const auto& t : trans) {
+          std::cout << "    (" << sid << ", " << sym.GetSymbol() << ") -> " 
+                    << t.GetDestinationId() << "\n";
+        }
+        
+        // Epsilon transitions
+        auto eps_trans = s->GetTransitions(eps);
+        for (const auto& t : eps_trans) {
+          std::cout << "    (" << sid << ", &) -> " << t.GetDestinationId() << "\n";
+        }
+      }
     }
 
     // Transitions: Move + ε-closure
     auto next = Move(current, sym);
     current = EpsilonClosure(next);
 
+    if (trace_mode) {
+      std::cout << "  Estados siguientes (después de Move + ε-closure): {";
+      bool first = true;
+      for (const auto& sid : current) {
+        if (!first) std::cout << ", ";
+        std::cout << sid;
+        first = false;
+      }
+      std::cout << "}\n\n";
+    }
+
     if (current.empty()) break;
   }
 
   // Aceptation: if any of the current states is final
+  bool accepted = false;
   for (const auto& sid : current) {
     for (const auto& acc : accept_states_) {
       if (sid == acc.GetStateId()) {
-        return true;
+        accepted = true;
+        break;
       }
     }
+    if (accepted) break;
   }
-  return false;
+
+  if (trace_mode) {
+    std::cout << "Estados finales alcanzados: {";
+    bool first = true;
+    for (const auto& sid : current) {
+      if (!first) std::cout << ", ";
+      std::cout << sid;
+      first = false;
+    }
+    std::cout << "}\n";
+    std::cout << "Estados de aceptación: {";
+    first = true;
+    for (const auto& acc : accept_states_) {
+      if (!first) std::cout << ", ";
+      std::cout << acc.GetStateId();
+      first = false;
+    }
+    std::cout << "}\n";
+    std::cout << "Resultado: " << (accepted ? "ACEPTADA" : "RECHAZADA") << "\n";
+    std::cout << "=========================================\n\n";
+  }
+
+  return accepted;
 }
