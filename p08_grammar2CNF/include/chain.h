@@ -21,7 +21,7 @@
 #include "symbol.h"
 #include "alphabet.h"
 
-class Language;  // Forward declaration to avoid circular dependency
+//class Language;  // Forward declaration to avoid circular dependency
 
 /**
  * @brief Class representing a chain, which is a sequence of symbols.
@@ -41,9 +41,9 @@ class Chain {
     void SetAlphabet(const Alphabet& alphabet);
     int Lenght() const;
     Chain Inverse() const;
-    Language Prefixes() const;
-    Language Suffixes() const;
-    Language Subchains() const; // ej chain: abc -> &, a, b, c, ab, bc, abc
+    // Language Prefixes() const;
+    // Language Suffixes() const;
+    // Language Subchains() const; // ej chain: abc -> &, a, b, c, ab, bc, abc
     friend std::ostream& operator<<(std::ostream& os, const Chain& chain);
     friend bool operator<(const Chain& chain1, const Chain& chain2);
     bool operator==(const Chain& other) const;

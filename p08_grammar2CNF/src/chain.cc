@@ -14,7 +14,7 @@
 //   03/11/2025 - Añadidos métodos SetChain, GetChain para string y operator== version 1.1
 
 #include "chain.h"
-#include "language.h"
+//#include "language.h"
 
 /**
  * @brief Default constructor for Chain class.
@@ -117,65 +117,65 @@ Chain Chain::Inverse() const {
   }
   return inverse_chain;
 }
-/**
- * @brief Returns the set of prefixes of the chain as a Language object.
- * @return A Language object containing all prefixes of the chain.
- */
-Language Chain::Prefixes() const {
-  std::set<Chain> prefixes;
-  Chain prefix;
-  Chain empty_chain;
+// /**
+//  * @brief Returns the set of prefixes of the chain as a Language object.
+//  * @return A Language object containing all prefixes of the chain.
+//  */
+// Language Chain::Prefixes() const {
+//   std::set<Chain> prefixes;
+//   Chain prefix;
+//   Chain empty_chain;
 
-  prefixes.insert(empty_chain);  // Adding the empty chain as a prefix
+//   prefixes.insert(empty_chain);  // Adding the empty chain as a prefix
   
-  for(long unsigned int i = 0; i < chain_.size(); ++i) {
-    prefix.AddToBack(chain_[i]);
-    prefixes.insert(prefix);
-  }
+//   for(long unsigned int i = 0; i < chain_.size(); ++i) {
+//     prefix.AddToBack(chain_[i]);
+//     prefixes.insert(prefix);
+//   }
 
-  return Language(prefixes);
-}
+//   return Language(prefixes);
+// }
 
-/**
- * @brief Returns the set of suffixes of the chain as a Language object.
- * @return A Language object containing all suffixes of the chain.
- */
-Language Chain::Suffixes() const {
-  std::set<Chain> suffixes;
-  Chain suffix;
-  Chain empty_chain;
+// /**
+//  * @brief Returns the set of suffixes of the chain as a Language object.
+//  * @return A Language object containing all suffixes of the chain.
+//  */
+// Language Chain::Suffixes() const {
+//   std::set<Chain> suffixes;
+//   Chain suffix;
+//   Chain empty_chain;
 
-  suffixes.insert(empty_chain);  // Adding the empty chain as a suffix
+//   suffixes.insert(empty_chain);  // Adding the empty chain as a suffix
   
-  for(int i = chain_.size() - 1; i >= 0; i--) {
-    suffix.AddToFront(chain_[i]);
-    suffixes.insert(suffix);
-  }
+//   for(int i = chain_.size() - 1; i >= 0; i--) {
+//     suffix.AddToFront(chain_[i]);
+//     suffixes.insert(suffix);
+//   }
 
-  return Language(suffixes);
-}
+//   return Language(suffixes);
+// }
 
-/**
- * @brief Returns the set of all subchains of the chain as a Language object.
- *        A subchain is any contiguous sequence of symbols within the chain,
- *        including the empty chain.
- * @return A Language object containing all subchains of the chain.
- */
-Language Chain::Subchains() const { // ej chain: abc -> &, a, b, c, ab, bc, abc
-  std::set<Chain> subchains;
-  Chain empty_chain;
-  subchains.insert(empty_chain);  // Adding the empty chain as a subchain
+// /**
+//  * @brief Returns the set of all subchains of the chain as a Language object.
+//  *        A subchain is any contiguous sequence of symbols within the chain,
+//  *        including the empty chain.
+//  * @return A Language object containing all subchains of the chain.
+//  */
+// Language Chain::Subchains() const { // ej chain: abc -> &, a, b, c, ab, bc, abc
+//   std::set<Chain> subchains;
+//   Chain empty_chain;
+//   subchains.insert(empty_chain);  // Adding the empty chain as a subchain
 
-  for(long unsigned int i = 0; i < chain_.size(); ++i) {
-    Chain subchain;
-    for(long unsigned int j = i; j < chain_.size(); ++j) {
-      subchain.AddToBack(chain_[j]);
-      subchains.insert(subchain);
-    }
-  }
+//   for(long unsigned int i = 0; i < chain_.size(); ++i) {
+//     Chain subchain;
+//     for(long unsigned int j = i; j < chain_.size(); ++j) {
+//       subchain.AddToBack(chain_[j]);
+//       subchains.insert(subchain);
+//     }
+//   }
 
-  return Language(subchains);
-}
+//   return Language(subchains);
+// }
 
 /**
  * @brief Output stream operator for printing the chain.
