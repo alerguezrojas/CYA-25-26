@@ -31,12 +31,12 @@ const char SPACE = ' ';
 
 const std::string kHowUse =
     std::string(
-        "How to use: ./p08_Grammar2CNF data/input.gra data/output.gra\n"
-        "Try './p08_Grammar2CNF --help || -h' for more information.");
+        "How to use: ./bin/p08_Grammar2CNF data/input.gra data/output.gra\n"
+        "Try './bin/p08_Grammar2CNF --help || -h' for more information.");
 
 const std::string kHelp =
     std::string(
-        "Usage: ./p08_grammar_converter grammar_file.gra output_grammar_file.gra\n"
+        "Usage: ./bin/p08_grammar_converter data/grammar_file.gra data/output_grammar_file.gra\n"
         "\n"
         "Converts a context-free grammar to Chomsky normal form.\n"
         "\n"
