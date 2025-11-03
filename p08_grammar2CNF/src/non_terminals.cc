@@ -7,7 +7,7 @@
 // Autor: Alejandro Rodríguez Rojas
 // Correro: alu0101317038@ull.edu.es
 // Fecha de entrega: 04/11/2025
-// Archivo chain.h: Fichero que contiene la implementación de la clase NonTerminals
+// Archivo non_terminals.cc: Fichero que contiene la implementación de la clase NonTerminals
 // Referencias:
 // Historial de revisiones
 //   03/11/2025 - Creacion del codigo version 1.0
