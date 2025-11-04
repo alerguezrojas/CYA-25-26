@@ -231,38 +231,40 @@ bool Grammar::hasEmptyProductions() const {
 }
 
 /**
- * @brief Computes the set of non-terminal symbols reachable from the start symbol.
+ * @brief Computa el conjunto de símbolos no terminales alcanzables desde el símbolo inicial.
  *
- * Performs a BFS over the productions starting from the start symbol and collects
- * every non-terminal that can be reached. The returned set contains the character
- * representation (first character) of each reachable non-terminal string.
+ * Este metodo realiza una búsqueda en anchura (BFS) para encontrar todos los símbolos no terminales
+ * que son alcanzables desde el símbolo inicial de la gramática. Utiliza una cola para explorar
+ * los símbolos y un conjunto para rastrear los símbolos ya visitados, evitando ciclos infinitos.
  */
 std::set<char> Grammar::ReachableNonterminals() const {
-  std::set<char> reachable;
-  std::vector<std::string> nts = non_terminals_.GetNonTerminals();
-  if (nts.empty()) return reachable;
+  std::set<char> reachable; // Conjunto de símbolos alcanzables
+  std::vector<std::string> nts = non_terminals_.GetNonTerminals(); // Obtener la lista de no terminales
+  if (nts.empty()) return reachable; // Si no hay no terminales, retornar conjunto vacío
 
-  auto productions = non_terminals_.GetProductions();
+  auto productions = non_terminals_.GetProductions(); // Obtener las producciones de la gramática
 
-  std::string start = start_symbol_.ToString();
-  std::set<std::string> visited;
-  std::queue<std::string> queue;
+  std::string start = start_symbol_.ToString(); // Obtener el símbolo inicial
+  std::set<std::string> visited; // Conjunto de símbolos ya visitados
+  std::queue<std::string> queue; // Cola para la búsqueda en anchura
 
-  visited.insert(start);
-  queue.push(start);
+  visited.insert(start); // Marcar el símbolo inicial como visitado
+  queue.push(start); // Añadir el símbolo inicial a la cola
 
+  // Búsqueda en anchura (BFS)
   while (!queue.empty()) {
-    std::string current = queue.front();
-    queue.pop();
+    std::string current = queue.front(); // Obtener el símbolo actual
+    queue.pop(); // Eliminar el símbolo actual de la cola
     if (!current.empty()) {
-      reachable.insert(current[0]);
+      reachable.insert(current[0]); // Añadir el primer carácter del símbolo actual al conjunto de alcanzables
     }
 
+    // Obtener las producciones asociadas al símbolo actual
     auto range = productions.equal_range(current);
     for (auto it = range.first; it != range.second; ++it) {
       const auto& rhs = it->second;
       for (const auto& sym : rhs) {
-        // If sym is one of the declared non-terminals
+        // Si el símbolo es un no terminal y no ha sido visitado
         if (std::find(nts.begin(), nts.end(), sym) != nts.end()) {
           if (visited.insert(sym).second) {
             queue.push(sym);
