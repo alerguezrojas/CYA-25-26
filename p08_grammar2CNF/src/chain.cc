@@ -63,7 +63,7 @@ std::vector<Symbol> Chain::GetChain() const {
  */
 std::string Chain::GetChain() {
   std::string chain;
-  for (int i = 0; i < chain_.size(); i++) {
+  for (long unsigned int i = 0; i < chain_.size(); i++) {
     chain += chain_[i].GetSymbol();
   }
   return chain;

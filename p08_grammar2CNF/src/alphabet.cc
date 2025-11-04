@@ -59,7 +59,7 @@ void Alphabet::AddSymbol(const Symbol& symbol) {
  * @param symbol The string representing the symbol to add.
  */
 void Alphabet::AddSymbol(const std::string& value) {
-  for (int i = 0; i < value.size(); i++) {
+  for (long unsigned int i = 0; i < value.size(); i++) {
     alphabet_.insert(Symbol(value[i]));
   }
 
