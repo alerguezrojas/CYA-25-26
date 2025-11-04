@@ -42,6 +42,28 @@ int main(int argc, char* argv[]) {
   try {
     if (check_parameters(argc, argv)) {
       Grammar grammar(argv[1]);
+      // Mostrar símbolos alcanzables desde el símbolo inicial S
+      std::set<char> reachable = grammar.ReachableNonterminals();
+      std::cout << "Simbolos alcanzables desde S: ";
+      for (char c : reachable) {
+        std::cout << c << " ";
+      }
+      std::cout << std::endl;
+      // Comprobar si existen no terminales no alcanzables
+      if (reachable.size() < static_cast<size_t>(grammar.GetNonTerminals().size())) {
+        std::cout << "Advertencia: existen no terminales no alcanzables desde S." << std::endl;
+        // Mostrar no alcanzables
+        std::cout << "No alcanzables: ";
+        for (const auto& nt : grammar.GetNonTerminals().GetNonTerminals()) {
+          if (nt.empty()) continue;
+          if (reachable.find(nt[0]) == reachable.end()) {
+            std::cout << nt << " ";
+          }
+        }
+        std::cout << std::endl;
+      } else {
+        std::cout << "Todos los no terminales son alcanzables desde S." << std::endl;
+      }
       std::cout << "Original Grammar: \n" << grammar << std::endl;
       Grammar cnf_grammar = grammar.Convert2CNF();
       std::cout << "\nGrammar in Chomsky Normal Form: \n" << cnf_grammar << std::endl;

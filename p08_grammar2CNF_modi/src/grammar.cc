@@ -13,6 +13,7 @@
 //   03/11/2025 - Creacion del codigo version 1.0
 
 #include "grammar.h"
+#include <queue>
 
 /**
  * @brief Constructs a Grammar object by reading grammar rules from a file.
@@ -227,6 +228,51 @@ bool Grammar::hasEmptyProductions() const {
     }
   }  // file << grammar;
   return false;
+}
+
+/**
+ * @brief Computes the set of non-terminal symbols reachable from the start symbol.
+ *
+ * Performs a BFS over the productions starting from the start symbol and collects
+ * every non-terminal that can be reached. The returned set contains the character
+ * representation (first character) of each reachable non-terminal string.
+ */
+std::set<char> Grammar::ReachableNonterminals() const {
+  std::set<char> reachable;
+  std::vector<std::string> nts = non_terminals_.GetNonTerminals();
+  if (nts.empty()) return reachable;
+
+  auto productions = non_terminals_.GetProductions();
+
+  std::string start = start_symbol_.ToString();
+  std::set<std::string> visited;
+  std::queue<std::string> queue;
+
+  visited.insert(start);
+  queue.push(start);
+
+  while (!queue.empty()) {
+    std::string current = queue.front();
+    queue.pop();
+    if (!current.empty()) {
+      reachable.insert(current[0]);
+    }
+
+    auto range = productions.equal_range(current);
+    for (auto it = range.first; it != range.second; ++it) {
+      const auto& rhs = it->second;
+      for (const auto& sym : rhs) {
+        // If sym is one of the declared non-terminals
+        if (std::find(nts.begin(), nts.end(), sym) != nts.end()) {
+          if (visited.insert(sym).second) {
+            queue.push(sym);
+          }
+        }
+      }
+    }
+  }
+
+  return reachable;
 }
 
 /**

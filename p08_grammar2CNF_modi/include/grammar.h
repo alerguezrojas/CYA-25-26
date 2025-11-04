@@ -52,6 +52,9 @@ class Grammar {
     Grammar Convert2CNF() const;
     bool hasUnitaryProductions() const;
     bool hasEmptyProductions() const;
+  // Returns the set of non-terminal symbols reachable from the start symbol S.
+  // Each non-terminal is represented by its single character.
+  std::set<char> ReachableNonterminals() const;
     friend std::ostream& operator<<(std::ostream& os, const Grammar& grammar);
     
 
