@@ -1,0 +1,11 @@
+/home/usuario/CYA-25-26/time/build/CMakeFiles/edit_cache.dir
+/home/usuario/CYA-25-26/time/build/CMakeFiles/rebuild_cache.dir
+/home/usuario/CYA-25-26/time/build/sorting/CMakeFiles/sorting_library.dir
+/home/usuario/CYA-25-26/time/build/sorting/CMakeFiles/edit_cache.dir
+/home/usuario/CYA-25-26/time/build/sorting/CMakeFiles/rebuild_cache.dir
+/home/usuario/CYA-25-26/time/build/test/CMakeFiles/test_bench.dir
+/home/usuario/CYA-25-26/time/build/test/CMakeFiles/edit_cache.dir
+/home/usuario/CYA-25-26/time/build/test/CMakeFiles/rebuild_cache.dir
+/home/usuario/CYA-25-26/time/build/main/CMakeFiles/test_sorting.dir
+/home/usuario/CYA-25-26/time/build/main/CMakeFiles/edit_cache.dir
+/home/usuario/CYA-25-26/time/build/main/CMakeFiles/rebuild_cache.dir
