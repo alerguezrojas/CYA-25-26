@@ -1,3 +1,14 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2°
+// Práctica 11: Algoritmos Voraces (Greedy). Euclidean Minimum Spanning Tree
+// Autor: Alejandro Rodríguez Rojas
+// Correro: alu0101317038@ull.edu.es
+// Fecha de entrega: 09/12/2025
+// Archivo main.cc: Fichero principal del programa
+
 #include <iostream>
 #include <fstream>
 #include <string>
