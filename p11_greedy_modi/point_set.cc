@@ -19,32 +19,32 @@ point_set::point_set(const CyA::point_vector &points) : CyA::point_vector(points
 point_set::~point_set(void) {}
 
 void point_set::EMST(void) {
-    CyA::arc_vector av;
-    compute_arc_vector(av);
+    CyA::arc_vector av; // Vector de arcos con pesos para Kruskal
+    compute_arc_vector(av); // Calcula las distancias entre todos los puntos (las ordena de menor a mayor)
 
-    forest st;
+    forest st; // Bosque de subárboles
 
     // Inicialmente cada punto es un subárbol
     for (const CyA::point &p : *this) {
-        EMST::sub_tree s;
-        s.add_point(p);
-        st.push_back(s);
+        EMST::sub_tree s; // Nuevo subárbol
+        s.add_point(p); // Añadir el punto al subárbol
+        st.push_back(s); // Añadir el subárbol al bosque
     }
 
     // Algoritmo de Kruskal
     for (const CyA::weigthed_arc &a : av) {
-        int i, j;
+        int i, j; // Índices de los subárboles incidentes
         find_incident_subtrees(st, a.second, i, j);
 
-        if (i != j) {
-            merge_subtrees(st, a.second, i, j);
+        if (i != j) { // Si son distintos subárboles, los unimos
+            merge_subtrees(st, a.second, i, j); // si ya  estan unidos, se descarta el arco
         }
     }
 
     // Al finalizar, el bosque debería tener un solo componente (el EMST)
     if (!st.empty()) {
-        emst_ = st[0].get_arcs();
-        emst_cost_ = st[0].get_cost();
+        emst_ = st[0].get_arcs(); // Obtener los arcos del EMST
+        emst_cost_ = st[0].get_cost(); // Obtener el coste total del EMST
     }
 }
 
