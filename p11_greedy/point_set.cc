@@ -22,13 +22,13 @@ void point_set::EMST(void) {
     CyA::arc_vector av; // Vector de arcos con pesos para Kruskal
     compute_arc_vector(av); // Calcula las distancias entre todos los puntos (las ordena de menor a mayor)
 
-    forest st;
+    forest st; // Bosque de subárboles
 
     // Inicialmente cada punto es un subárbol
     for (const CyA::point &p : *this) {
-        EMST::sub_tree s;
-        s.add_point(p);
-        st.push_back(s);
+        EMST::sub_tree s; // Nuevo subárbol
+        s.add_point(p); // Añadir el punto al subárbol
+        st.push_back(s); // Añadir el subárbol al bosque
     }
 
     // Algoritmo de Kruskal
